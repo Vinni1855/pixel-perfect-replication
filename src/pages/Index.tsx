@@ -3,6 +3,7 @@ import HeroBanner from "@/components/HeroBanner";
 import HotGames from "@/components/HotGames";
 import Leaderboard from "@/components/Leaderboard";
 import Promotions from "@/components/Promotions";
+import F1Tabs from "@/components/F1Tabs";
 
 const Index = () => {
   return (
@@ -41,6 +42,8 @@ const Index = () => {
               <Leaderboard />
             </div>
           </div>
+
+          <F1Tabs />
 
           {/* Footer */}
           <footer className="border-t border-border pt-6 pb-8 text-center">

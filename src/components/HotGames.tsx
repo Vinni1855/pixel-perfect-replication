@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import gamePokerSlots from "@/assets/game-poker-slots.jpg";
 import gameRoulette from "@/assets/game-roulette.jpg";
 import gameBlackjack from "@/assets/game-blackjack.jpg";
@@ -5,14 +6,43 @@ import gameLiveCasino from "@/assets/game-live-casino.jpg";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const games = [
-  { img: gamePokerSlots, title: "Poker Slots", subtitle: "F1 Red Car", category: "Race Slots" },
-  { img: gameRoulette, title: "Roulette Raceway", subtitle: "Wheel & Paddock", category: "Race Slots" },
-  { img: gameBlackjack, title: "Blackjack Speedway", subtitle: "Cards & Helmets", category: "Blackjack" },
-  { img: gameLiveCasino, title: "Live Casino Grand Prix", subtitle: "Dealer & Track", category: "Live Casino" },
+  {
+    img: gamePokerSlots,
+    title: "Poker Slots",
+    subtitle: "F1 Red Car",
+    category: "Race Slots",
+    route: "/game/poker-slots",
+  },
+  {
+    img: gameRoulette,
+    title: "Roulette Raceway",
+    subtitle: "Wheel & Paddock",
+    category: "Race Slots",
+    route: "/game/roulette-raceway",
+  },
+  {
+    img: gameBlackjack,
+    title: "Blackjack Speedway",
+    subtitle: "Cards & Helmets",
+    category: "Blackjack",
+    route: "/game/blackjack-speedway",
+  },
+  {
+    img: gameLiveCasino,
+    title: "Live Casino Grand Prix",
+    subtitle: "Dealer & Track",
+    category: "Live Casino",
+    route: "/game/live-casino-grand-prix",
+  },
 ];
 
 export default function HotGames() {
   const ref = useScrollReveal();
+  const navigate = useNavigate();
+
+  const handlePlayGame = (route: string) => {
+    navigate(route);
+  };
 
   return (
     <section ref={ref} className="reveal">
@@ -31,6 +61,7 @@ export default function HotGames() {
             key={game.title}
             className="group relative bg-card rounded-lg overflow-hidden border border-border hover:border-primary/40 transition-all duration-300 cursor-pointer"
             style={{ transitionDelay: `${i * 60}ms` }}
+            onClick={() => handlePlayGame(game.route)}
           >
             <div className="aspect-square overflow-hidden">
               <img
