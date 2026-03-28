@@ -85,14 +85,14 @@ export default function BlackjackSpeedwayGame() {
     if (dealerTotal > 21) {
       const winAmount = bet * 2;
       setBalance((prev) => prev + winAmount);
-      setResult(`🎉 DEALER ESOUROU! Você venceu! +€${winAmount}`);
+      setResult(`🎉 DEALER ESOUROU! Você venceu! +R$ ${winAmount}`);
     } else if (playerTotal > dealerTotal) {
       const winAmount = bet * 2;
       setBalance((prev) => prev + winAmount);
-      setResult(`🎉 Você venceu! ${playerTotal} vs ${dealerTotal}! +€${winAmount}`);
+      setResult(`🎉 Você venceu! ${playerTotal} vs ${dealerTotal}! +R$ ${winAmount}`);
     } else if (playerTotal === dealerTotal) {
       setBalance((prev) => prev + bet);
-      setResult(`🤝 Empate! +€${bet} restituído`);
+      setResult(`🤝 Empate! +R$ ${bet} restituído`);
     } else {
       setResult(`❌ Dealer venceu! ${dealerTotal} vs ${playerTotal}`);
     }
@@ -192,7 +192,7 @@ export default function BlackjackSpeedwayGame() {
             <div className="space-y-4">
               <div className="flex items-center justify-between bg-background/50 rounded-lg p-4">
                 <span className="text-muted-foreground">Aposta Atual:</span>
-                <span className="text-gold font-display text-2xl font-bold">€{bet}</span>
+                <span className="text-gold font-display text-2xl font-bold">R$ {bet}</span>
               </div>
 
               <div className="grid grid-cols-4 gap-2">
@@ -203,7 +203,7 @@ export default function BlackjackSpeedwayGame() {
                     onClick={() => setBet(amount)}
                     disabled={gameStarted}
                   >
-                    €{amount}
+                    R$ {amount}
                   </Button>
                 ))}
               </div>

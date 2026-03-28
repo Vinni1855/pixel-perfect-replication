@@ -52,7 +52,7 @@ export default function LiveCasinoGrandPrixGame() {
         const winAmount = Math.floor(bet * winnerOdds);
         setBalance((prev) => prev + winAmount);
         setResult(
-          `🎉 ${selectedTeam} VENCEU! 🏆 Piloto cruzou a linha primeiro! +€${winAmount}`
+          `🎉 ${selectedTeam} VENCEU! 🏆 Piloto cruzou a linha primeiro! +R$ ${winAmount}`
         );
       } else {
         setResult(`❌ ${winner} venceu! ${selectedTeam} não terminou em primeiro.`);
@@ -153,7 +153,7 @@ export default function LiveCasinoGrandPrixGame() {
                     <div className="flex items-center justify-between">
                       <Badge variant="secondary">Odds: {team.odds.toFixed(2)}</Badge>
                       <span className="text-gold font-semibold">
-                        +€{Math.floor(bet * team.odds)}
+                        +R$ {Math.floor(bet * team.odds)}
                       </span>
                     </div>
                   </div>
@@ -165,7 +165,7 @@ export default function LiveCasinoGrandPrixGame() {
             <div className="space-y-4">
               <div className="flex items-center justify-between bg-background/50 rounded-lg p-4">
                 <span className="text-muted-foreground">Aposta Atual:</span>
-                <span className="text-gold font-display text-2xl font-bold">€{bet}</span>
+                <span className="text-gold font-display text-2xl font-bold">R$ {bet}</span>
               </div>
 
               <div className="grid grid-cols-4 gap-2">
@@ -176,7 +176,7 @@ export default function LiveCasinoGrandPrixGame() {
                     onClick={() => setBet(amount)}
                     disabled={gameStarted}
                   >
-                    €{amount}
+                    R$ {amount}
                   </Button>
                 ))}
               </div>
@@ -222,7 +222,7 @@ export default function LiveCasinoGrandPrixGame() {
           <div className="grid md:grid-cols-3 gap-4">
             <div className="bg-background rounded-lg border border-border p-4">
               <span className="text-muted-foreground block text-sm mb-1">Saldo</span>
-              <span className="text-gold font-display text-3xl font-bold">€{balance}</span>
+              <span className="text-gold font-display text-3xl font-bold">R$ {balance}</span>
             </div>
             <div className="bg-background rounded-lg border border-border p-4">
               <span className="text-muted-foreground block text-sm mb-1">Piloto Selecionado</span>
@@ -231,7 +231,7 @@ export default function LiveCasinoGrandPrixGame() {
             <div className="bg-background rounded-lg border border-border p-4">
               <span className="text-muted-foreground block text-sm mb-1">Ganho Potencial</span>
               <span className="text-green-500 font-display text-2xl font-bold">
-                +€{selectedTeam ? Math.floor(bet * (liveOdds[selectedTeam as keyof typeof liveOdds] || 1)) : 0}
+                +R$ {selectedTeam ? Math.floor(bet * (liveOdds[selectedTeam as keyof typeof liveOdds] || 1)) : 0}
               </span>
             </div>
           </div>

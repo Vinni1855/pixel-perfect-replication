@@ -38,11 +38,11 @@ export default function PokerSlotsGame() {
       if (newReels[0] === newReels[1] && newReels[1] === newReels[2]) {
         const winAmount = bet * 10;
         setBalance((prev) => prev + winAmount);
-        setResult(`🎉 VITÓRIA! +€${winAmount}`);
+        setResult(`🎉 VITÓRIA! +R$ ${winAmount}`);
       } else if (newReels[0] === newReels[1] || newReels[1] === newReels[2]) {
         const winAmount = bet * 3;
         setBalance((prev) => prev + winAmount);
-        setResult(`✅ Dois Iguais! +€${winAmount}`);
+        setResult(`✅ Dois Iguais! +R$ ${winAmount}`);
       } else {
         setResult("Tente novamente!");
       }
@@ -113,7 +113,7 @@ export default function PokerSlotsGame() {
             <div className="space-y-4">
               <div className="flex items-center justify-between bg-background/50 rounded-lg p-4">
                 <span className="text-muted-foreground">Aposta Atual:</span>
-                <span className="text-gold font-display text-2xl font-bold">€{bet}</span>
+                <span className="text-gold font-display text-2xl font-bold">R$ {bet}</span>
               </div>
 
               <div className="grid grid-cols-4 gap-2">
@@ -124,7 +124,7 @@ export default function PokerSlotsGame() {
                     onClick={() => setBet(amount)}
                     disabled={spinning}
                   >
-                    €{amount}
+                    R$ {amount}
                   </Button>
                 ))}
               </div>
@@ -143,7 +143,7 @@ export default function PokerSlotsGame() {
           <div className="grid md:grid-cols-2 gap-4">
             <div className="bg-background rounded-lg border border-border p-4">
               <span className="text-muted-foreground block text-sm mb-1">Saldo Disponível</span>
-              <span className="text-gold font-display text-3xl font-bold">€{balance}</span>
+              <span className="text-gold font-display text-3xl font-bold">R$ {balance}</span>
             </div>
             <div className="bg-background rounded-lg border border-border p-4">
               <span className="text-muted-foreground block text-sm mb-1">Multiplicador Máximo</span>

@@ -2,44 +2,49 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
-// F1 Racing Games
+// F1 Racing Games - Based on actual game modes
 const f1Games = [
   {
     id: 1,
-    title: "Monaco Speedway Slots",
-    category: "Slots",
-    odds: "3.5x",
-    prize: "€5,000",
+    title: "🎰 Poker Slots: Monaco Speedway",
+    category: "Poker Slots",
+    odds: "3.8x",
+    prize: "R$ 30.000",
     image: "🏰",
-    description: "Corrida pelas ruas de Mônaco",
+    description: "Slots de Poker nas ruas de Mônaco",
+    route: "/game/poker-slots",
   },
   {
     id: 2,
-    title: "Pit Lane Multiplier",
-    category: "Slots",
+    title: "🎡 Roulette Raceway: Pit Lane",
+    category: "Roulette",
     odds: "4.2x",
-    prize: "€8,000",
-    image: "⚡",
-    description: "Bônus de paradas na pit lane",
+    prize: "R$ 48.000",
+    image: "⚙️",
+    description: "Roleta de paradas na pit lane",
+    route: "/game/roulette-raceway",
   },
   {
     id: 3,
-    title: "Qualifying Roulette",
-    category: "Roulette",
-    odds: "2.8x",
-    prize: "€3,500",
-    image: "🎡",
-    description: "Roleta do grid de largada",
+    title: "🎴 Blackjack Speedway: Qualification",
+    category: "Blackjack",
+    odds: "2.9x",
+    prize: "R$ 21.000",
+    image: "🏁",
+    description: "Blackjack da qualificação",
+    route: "/game/blackjack-speedway",
   },
   {
     id: 4,
-    title: "Championship Blackjack",
-    category: "Blackjack",
-    odds: "1.95x",
-    prize: "€2,000",
-    image: "🎴",
-    description: "Blackjack da temporada",
+    title: "💎 Live Casino Grand Prix",
+    category: "Live Casino",
+    odds: "3.15x",
+    prize: "R$ 39.000",
+    image: "🎰",
+    description: "Casino ao vivo do Grande Prêmio",
+    route: "/game/live-casino-grand-prix",
   },
 ];
 
@@ -51,7 +56,7 @@ const bettingMarkets = [
     category: "Race Winner",
     driver: "George Russell (Mercedes)",
     odds: "3.20",
-    stake: "Min €5",
+    stake: "Min R$ 30",
     flag: "🇬🇧",
   },
   {
@@ -60,7 +65,7 @@ const bettingMarkets = [
     category: "Podium",
     driver: "Kimi Antonelli (Mercedes)",
     odds: "2.15",
-    stake: "Min €10",
+    stake: "Min R$ 60",
     flag: "🇮🇹",
   },
   {
@@ -69,7 +74,7 @@ const bettingMarkets = [
     category: "Fastest Lap",
     driver: "Charles Leclerc (Ferrari)",
     odds: "4.50",
-    stake: "Min €5",
+    stake: "Min R$ 30",
     flag: "🇲🇨",
   },
   {
@@ -78,7 +83,7 @@ const bettingMarkets = [
     category: "Pole Position",
     driver: "Lewis Hamilton (Ferrari)",
     odds: "2.85",
-    stake: "Min €10",
+    stake: "Min R$ 60",
     flag: "🇬🇧",
   },
   {
@@ -87,7 +92,7 @@ const bettingMarkets = [
     category: "Championship",
     driver: "George Russell",
     odds: "5.20",
-    stake: "Min €20",
+    stake: "Min R$ 120",
     flag: "🇬🇧",
   },
   {
@@ -96,7 +101,7 @@ const bettingMarkets = [
     category: "Constructor",
     driver: "Mercedes",
     odds: "2.40",
-    stake: "Min €15",
+    stake: "Min R$ 90",
     flag: "🇩🇪",
   },
 ];
@@ -106,7 +111,7 @@ const tournaments = [
   {
     id: 1,
     title: "Grand Prix Masters",
-    prize: "€50,000",
+    prize: "R$ 300.000",
     players: "1,824",
     status: "Em Andamento",
     image: "👑",
@@ -115,7 +120,7 @@ const tournaments = [
   {
     id: 2,
     title: "Qualifying Rush",
-    prize: "€25,000",
+    prize: "R$ 150.000",
     players: "892",
     status: "Registrado",
     image: "⚡",
@@ -124,7 +129,7 @@ const tournaments = [
   {
     id: 3,
     title: "Pit Stop Challenge",
-    prize: "€15,000",
+    prize: "R$ 90.000",
     players: "556",
     status: "Registrado",
     image: "🏁",
@@ -133,7 +138,7 @@ const tournaments = [
   {
     id: 4,
     title: "Championship Series",
-    prize: "€100,000",
+    prize: "R$ 600.000",
     players: "2,451",
     status: "Em Andamento",
     image: "🏆",
@@ -147,7 +152,7 @@ const vipExperiences = [
     id: 1,
     title: "VIP Paddock Access",
     benefit: "Acesso à Paddock Club",
-    value: "€5,000",
+    value: "R$ 30.000",
     image: "🎫",
     description: "Ingressos exclusivos para 4 Grandes Prêmios",
   },
@@ -155,7 +160,7 @@ const vipExperiences = [
     id: 2,
     title: "Meet & Greet",
     benefit: "Conhecer os Pilotos",
-    value: "€2,500",
+    value: "R$ 15.000",
     image: "🤝",
     description: "Encontro exclusivo com pilotos F1",
   },
@@ -163,7 +168,7 @@ const vipExperiences = [
     id: 3,
     title: "Simulator Championship",
     benefit: "Competição Virtual F1",
-    value: "€10,000",
+    value: "R$ 60.000",
     image: "🎮",
     description: "Campeonato de simulador com prêmios reais",
   },
@@ -171,7 +176,7 @@ const vipExperiences = [
     id: 4,
     title: "Luxury Trip to Monaco",
     benefit: "Experiência Premium",
-    value: "€15,000",
+    value: "R$ 90.000",
     image: "✈️",
     description: "Viagem 5 estrelas para o GP de Mônaco",
   },
@@ -179,38 +184,51 @@ const vipExperiences = [
 
 export default function F1Tabs() {
   const ref = useScrollReveal();
+  const navigate = useNavigate();
 
   return (
-    <div ref={ref} className="reveal bg-card rounded-lg border border-border overflow-hidden">
-      <Tabs defaultValue="racing" className="w-full">
-        {/* Tabs Header */}
-        <TabsList className="w-full rounded-none border-b border-border bg-muted/50 p-0">
-          <TabsTrigger
-            value="racing"
-            className="rounded-none border-r border-border data-[state=active]:bg-background"
-          >
-            🏎️ F1 Racing
-          </TabsTrigger>
-          <TabsTrigger
-            value="betting"
-            className="rounded-none border-r border-border data-[state=active]:bg-background"
-          >
-            💰 Betting Markets
-          </TabsTrigger>
-          <TabsTrigger
-            value="tournaments"
-            className="rounded-none border-r border-border data-[state=active]:bg-background"
-          >
-            🏆 Tournaments
-          </TabsTrigger>
-          <TabsTrigger value="vip" className="rounded-none data-[state=active]:bg-background">
-            👑 VIP F1 Experience
-          </TabsTrigger>
-        </TabsList>
+    <div ref={ref} className="reveal space-y-4">
+      {/* Section Header */}
+      <div className="px-1">
+        <h2 className="font-display text-foreground text-xl md:text-2xl uppercase tracking-wide mb-2">
+          🏎️ F1 Grand Prix Casino
+        </h2>
+        <p className="text-muted-foreground text-sm">
+          Viva a emoção da Fórmula 1 com slots temáticos, apostas em tempo real e torneios exclusivos
+        </p>
+      </div>
+      
+      {/* Tabs Content */}
+      <div className="bg-card rounded-lg border border-border overflow-hidden">
+        <Tabs defaultValue="racing" className="w-full">
+          {/* Tabs Header */}
+          <TabsList className="w-full rounded-none border-b border-border bg-muted/50 p-0">
+            <TabsTrigger
+              value="racing"
+              className="rounded-none border-r border-border data-[state=active]:bg-background"
+            >
+              🏎️ F1 Racing
+            </TabsTrigger>
+            <TabsTrigger
+              value="betting"
+              className="rounded-none border-r border-border data-[state=active]:bg-background"
+            >
+              💰 Betting Markets
+            </TabsTrigger>
+            <TabsTrigger
+              value="tournaments"
+              className="rounded-none border-r border-border data-[state=active]:bg-background"
+            >
+              🏆 Tournaments
+            </TabsTrigger>
+            <TabsTrigger value="vip" className="rounded-none data-[state=active]:bg-background">
+              👑 VIP F1 Experience
+            </TabsTrigger>
+          </TabsList>
 
-        {/* Racing Games Tab */}
-        <TabsContent value="racing" className="p-5 space-y-4 m-0">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Racing Games Tab */}
+          <TabsContent value="racing" className="p-5 space-y-4 m-0">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {f1Games.map((game) => (
               <div
                 key={game.id}
@@ -227,24 +245,27 @@ export default function F1Tabs() {
 
                 <div className="p-4 border-t border-border bg-background/50">
                   <div className="flex items-center justify-between mb-3">
-                    <Badge variant="outline">{game.category}</Badge>
+                    <Badge variant="outline" className="bg-primary/10 text-primary border-primary/30">{game.category}</Badge>
                     <span className="text-gold font-semibold text-sm">{game.odds}</span>
                   </div>
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between mb-3">
                     <span className="text-muted-foreground text-sm">Prêmio:</span>
                     <span className="text-gold font-display font-bold">{game.prize}</span>
                   </div>
-                  <Button className="w-full mt-3 bg-primary hover:bg-primary/90">
+                  <Button 
+                    className="w-full bg-primary hover:bg-primary/90 active:scale-95 transition-transform"
+                    onClick={() => navigate(game.route)}
+                  >
                     Play Now
                   </Button>
                 </div>
               </div>
             ))}
           </div>
-        </TabsContent>
+          </TabsContent>
 
-        {/* Betting Markets Tab */}
-        <TabsContent value="betting" className="p-5 space-y-3 m-0">
+          {/* Betting Markets Tab */}
+          <TabsContent value="betting" className="p-5 space-y-3 m-0">
           <div className="space-y-3">
             {bettingMarkets.map((market) => (
               <div
@@ -278,10 +299,10 @@ export default function F1Tabs() {
               </div>
             ))}
           </div>
-        </TabsContent>
+          </TabsContent>
 
-        {/* Tournaments Tab */}
-        <TabsContent value="tournaments" className="p-5 space-y-4 m-0">
+          {/* Tournaments Tab */}
+          <TabsContent value="tournaments" className="p-5 space-y-4 m-0">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {tournaments.map((tournament) => (
               <div
@@ -322,10 +343,10 @@ export default function F1Tabs() {
               </div>
             ))}
           </div>
-        </TabsContent>
+          </TabsContent>
 
-        {/* VIP Experience Tab */}
-        <TabsContent value="vip" className="p-5 space-y-4 m-0">
+          {/* VIP Experience Tab */}
+          <TabsContent value="vip" className="p-5 space-y-4 m-0">
           <div className="bg-gradient-to-r from-gold/10 to-primary/10 rounded-lg border border-gold/30 p-4 mb-4">
             <p className="text-foreground text-sm">
               ✨ Experimente o luxo da F1 com nossos pacotes VIP exclusivos. Ganhe pontos a cada
@@ -362,7 +383,8 @@ export default function F1Tabs() {
             ))}
           </div>
         </TabsContent>
-      </Tabs>
+        </Tabs>
+      </div>
     </div>
   );
 }

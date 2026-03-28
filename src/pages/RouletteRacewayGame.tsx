@@ -37,15 +37,15 @@ export default function RouletteRacewayGame() {
       if (winningNumber === selectedNumber) {
         const winAmount = bet * 36;
         setBalance((prev) => prev + winAmount);
-        setResult(`🎉 NÚMERO CERTO! Saiu ${winningNumber}! +€${winAmount}`);
+        setResult(`🎉 NÚMERO CERTO! Saiu ${winningNumber}! +R$ ${winAmount}`);
       } else if (Math.floor(winningNumber / 12) === Math.floor(selectedNumber / 12)) {
         const winAmount = bet * 3;
         setBalance((prev) => prev + winAmount);
-        setResult(`✅ Acertou a Dúzia! Saiu ${winningNumber}! +€${winAmount}`);
+        setResult(`✅ Acertou a Dúzia! Saiu ${winningNumber}! +R$ ${winAmount}`);
       } else if (winningNumber % 2 === selectedNumber % 2) {
         const winAmount = bet * 2;
         setBalance((prev) => prev + winAmount);
-        setResult(`✅ Acertou Par/Ímpar! Saiu ${winningNumber}! +€${winAmount}`);
+        setResult(`✅ Acertou Par/Ímpar! Saiu ${winningNumber}! +R$ ${winAmount}`);
       } else {
         setResult(`❌ Saiu ${winningNumber}. Tente novamente!`);
       }
@@ -132,7 +132,7 @@ export default function RouletteRacewayGame() {
             <div className="space-y-4">
               <div className="flex items-center justify-between bg-background/50 rounded-lg p-4">
                 <span className="text-muted-foreground">Aposta Atual:</span>
-                <span className="text-gold font-display text-2xl font-bold">€{bet}</span>
+                <span className="text-gold font-display text-2xl font-bold">R$ {bet}</span>
               </div>
 
               <div className="grid grid-cols-4 gap-2">
@@ -143,7 +143,7 @@ export default function RouletteRacewayGame() {
                     onClick={() => setBet(amount)}
                     disabled={spinning}
                   >
-                    €{amount}
+                    R$ {amount}
                   </Button>
                 ))}
               </div>

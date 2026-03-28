@@ -1,19 +1,45 @@
-import { Home, Gamepad2, Radio, Gift, Trophy, Crown, Link, FileText, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import gamePokerSlots from "@/assets/game-poker-slots.jpg";
+import gameRoulette from "@/assets/game-roulette.jpg";
+import gameBlackjack from "@/assets/game-blackjack.jpg";
+import gameLiveCasino from "@/assets/game-live-casino.jpg";
 
-const navItems = [
-  { icon: Home, label: "Home", active: true },
-  { icon: Gamepad2, label: "Race Slots" },
-  { icon: Radio, label: "Live Casino" },
-  { icon: Gift, label: "Promotions" },
-  { icon: Trophy, label: "Tournaments" },
-  { icon: Crown, label: "VIP Club" },
-  { icon: Link, label: "Quick Links" },
-  { icon: FileText, label: "Log" },
+const games = [
+  {
+    img: gamePokerSlots,
+    title: "Poker Slots",
+    emoji: "🎰",
+    subtitle: "Monaco",
+    route: "/game/poker-slots",
+  },
+  {
+    img: gameRoulette,
+    title: "Roulette Raceway",
+    emoji: "🎡",
+    subtitle: "Pit Lane",
+    route: "/game/roulette-raceway",
+  },
+  {
+    img: gameBlackjack,
+    title: "Blackjack",
+    emoji: "🎴",
+    subtitle: "Speedway",
+    route: "/game/blackjack-speedway",
+  },
+  {
+    img: gameLiveCasino,
+    title: "Live Casino",
+    emoji: "💎",
+    subtitle: "Grand Prix",
+    route: "/game/live-casino-grand-prix",
+  },
 ];
 
 export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <aside
@@ -42,23 +68,27 @@ export default function Sidebar() {
       {!collapsed && (
         <div className="px-4 py-3 border-b border-sidebar-border">
           <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Balance</p>
-          <p className="text-gold font-display text-lg font-bold">€2,847.50</p>
+          <p className="text-gold font-display text-lg font-bold">R$ 17.100</p>
         </div>
       )}
 
-      {/* Nav */}
-      <nav className="flex-1 py-3 space-y-0.5 overflow-y-auto px-2">
-        {navItems.map((item) => (
+      {/* Games */}
+      <nav className="flex-1 py-3 space-y-2 overflow-y-auto px-2">
+        {games.map((game) => (
           <button
-            key={item.label}
-            className={`flex items-center gap-3 w-full px-3 py-2.5 rounded-md text-sm transition-colors duration-150 active:scale-[0.97] ${
-              item.active
-                ? "bg-sidebar-accent text-sidebar-accent-foreground"
-                : "text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground"
-            }`}
+            key={game.title}
+            onClick={() => navigate(game.route)}
+            className="w-full flex items-start gap-3 px-3 py-2.5 rounded-md text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground transition-all duration-150 active:scale-[0.97] group"
           >
-            <item.icon size={18} className={item.active ? "text-primary" : ""} />
-            {!collapsed && <span className="whitespace-nowrap">{item.label}</span>}
+            <div className="w-10 h-10 rounded overflow-hidden shrink-0 group-hover:shadow-md group-hover:shadow-primary/30 transition-shadow">
+              <img src={game.img} alt={game.title} className="w-full h-full object-cover" />
+            </div>
+            {!collapsed && (
+              <div className="flex-1 text-left min-w-0">
+                <div className="text-sm font-semibold text-sidebar-foreground truncate">{game.emoji} {game.title}</div>
+                <div className="text-xs text-sidebar-foreground/60 truncate">{game.subtitle}</div>
+              </div>
+            )}
           </button>
         ))}
       </nav>
