@@ -1,26 +1,14 @@
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Wallet, LogOut } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import gamePokerSlots from "@/assets/game-poker-slots.jpg";
-import gameRoulette from "@/assets/game-roulette.jpg";
+import { useWallet } from "@/hooks/useWallet";
+import DepositModal from "@/components/DepositModal";
+import WithdrawModal from "@/components/WithdrawModal";
+import TransactionHistory from "@/components/TransactionHistory";
 import gameBlackjack from "@/assets/game-blackjack.jpg";
 import gameLiveCasino from "@/assets/game-live-casino.jpg";
 
 const games = [
-  {
-    img: gamePokerSlots,
-    title: "Poker Slots",
-    emoji: "🎰",
-    subtitle: "Monaco",
-    route: "/game/poker-slots",
-  },
-  {
-    img: gameRoulette,
-    title: "Roulette Raceway",
-    emoji: "🎡",
-    subtitle: "Pit Lane",
-    route: "/game/roulette-raceway",
-  },
   {
     img: gameBlackjack,
     title: "Blackjack",
@@ -39,7 +27,11 @@ const games = [
 
 export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
+  const [depositOpen, setDepositOpen] = useState(false);
+  const [withdrawOpen, setWithdrawOpen] = useState(false);
+  const [historyOpen, setHistoryOpen] = useState(false);
   const navigate = useNavigate();
+  const { balance } = useWallet();
 
   return (
     <aside
@@ -66,9 +58,36 @@ export default function Sidebar() {
 
       {/* Balance */}
       {!collapsed && (
-        <div className="px-4 py-3 border-b border-sidebar-border">
-          <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Balance</p>
-          <p className="text-gold font-display text-lg font-bold">R$ 17.100</p>
+        <div className="px-4 py-3 border-b border-sidebar-border space-y-3">
+          <div>
+            <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Balance</p>
+            <p className="text-gold font-display text-lg font-bold">R$ {balance.toFixed(2)}</p>
+          </div>
+          
+          {/* Wallet Actions */}
+          <div className="flex gap-2">
+            <button
+              onClick={() => setDepositOpen(true)}
+              className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-gold/10 hover:bg-gold/20 text-gold rounded-md text-xs font-semibold transition-all duration-200 active:scale-[0.95]"
+            >
+              <span>+</span>
+              <span className="hidden sm:inline">Depositar</span>
+            </button>
+            <button
+              onClick={() => setWithdrawOpen(true)}
+              className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-primary/10 hover:bg-primary/20 text-primary rounded-md text-xs font-semibold transition-all duration-200 active:scale-[0.95]"
+            >
+              <span>-</span>
+              <span className="hidden sm:inline">Sacar</span>
+            </button>
+            <button
+              onClick={() => setHistoryOpen(true)}
+              className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-secondary/10 hover:bg-secondary/20 text-secondary rounded-md text-xs font-semibold transition-all duration-200 active:scale-[0.95]"
+            >
+              <Wallet className="w-4 h-4" />
+              <span className="hidden sm:inline">Histórico</span>
+            </button>
+          </div>
         </div>
       )}
 
@@ -100,6 +119,11 @@ export default function Sidebar() {
       >
         {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
       </button>
+
+      {/* Modals */}
+      <DepositModal open={depositOpen} onOpenChange={setDepositOpen} />
+      <WithdrawModal open={withdrawOpen} onOpenChange={setWithdrawOpen} />
+      <TransactionHistory open={historyOpen} onOpenChange={setHistoryOpen} />
     </aside>
   );
 }

@@ -1,24 +1,22 @@
 import { useNavigate } from "react-router-dom";
-import gamePokerSlots from "@/assets/game-poker-slots.jpg";
-import gameRoulette from "@/assets/game-roulette.jpg";
 import gameBlackjack from "@/assets/game-blackjack.jpg";
 import gameLiveCasino from "@/assets/game-live-casino.jpg";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const games = [
   {
-    img: gamePokerSlots,
-    title: "🎰 Poker Slots: Monaco",
-    subtitle: "F1 Racing Slots",
-    category: "Poker Slots",
-    route: "/game/poker-slots",
+    img: gameBlackjack,
+    title: "⏱️ F1 Pit Stop Challenge",
+    subtitle: "Desafio de Velocidade",
+    category: "Pit Stop Betting",
+    route: "/game/f1-pit-stop-challenge",
   },
   {
-    img: gameRoulette,
-    title: "🎡 Roulette Raceway",
-    subtitle: "Pit Lane Edition",
-    category: "Live Roulette",
-    route: "/game/roulette-raceway",
+    img: gameLiveCasino,
+    title: "🏆 F1 Race Predictor",
+    subtitle: "Preveja o Vencedor",
+    category: "Race Betting",
+    route: "/game/f1-race-predictor",
   },
   {
     img: gameBlackjack,

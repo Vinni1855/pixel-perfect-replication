@@ -8,23 +8,23 @@ import { useNavigate } from "react-router-dom";
 const f1Games = [
   {
     id: 1,
-    title: "🎰 Poker Slots: Monaco Speedway",
-    category: "Poker Slots",
+    title: "⏱️ F1 Pit Stop Challenge",
+    category: "Pit Stop Betting",
     odds: "3.8x",
     prize: "R$ 30.000",
-    image: "🏰",
-    description: "Slots de Poker nas ruas de Mônaco",
-    route: "/game/poker-slots",
+    image: "🏁",
+    description: "Desafio de velocidade nas paradas",
+    route: "/game/f1-pit-stop-challenge",
   },
   {
     id: 2,
-    title: "🎡 Roulette Raceway: Pit Lane",
-    category: "Roulette",
+    title: "🏆 F1 Race Predictor",
+    category: "Race Betting",
     odds: "4.2x",
     prize: "R$ 48.000",
-    image: "⚙️",
-    description: "Roleta de paradas na pit lane",
-    route: "/game/roulette-raceway",
+    image: "🏎️",
+    description: "Preveja qual piloto vencerá a corrida",
+    route: "/game/f1-race-predictor",
   },
   {
     id: 3,
@@ -266,6 +266,16 @@ export default function F1Tabs() {
 
           {/* Betting Markets Tab */}
           <TabsContent value="betting" className="p-5 space-y-3 m-0">
+          <div className="mb-4 bg-gradient-to-r from-primary/20 to-primary/5 rounded-lg p-4 border border-primary/30">
+            <h4 className="font-display font-bold text-foreground mb-2">💰 Mercados de Apostas em Tempo Real</h4>
+            <p className="text-muted-foreground text-sm mb-4">Escolha seus mercados favoritos e place suas apostas! Múltiplas seleções aumentam suas odds.</p>
+            <Button 
+              className="w-full bg-primary hover:bg-primary/90 active:scale-95 transition-transform font-bold uppercase tracking-wider"
+              onClick={() => navigate("/game/betting-markets")}
+            >
+              🎮 Jogar Agora - Betting Markets
+            </Button>
+          </div>
           <div className="space-y-3">
             {bettingMarkets.map((market) => (
               <div
@@ -292,7 +302,11 @@ export default function F1Tabs() {
 
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground text-sm">{market.stake}</span>
-                  <Button variant="outline" size="sm">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => navigate("/game/betting-markets")}
+                  >
                     Apostar
                   </Button>
                 </div>
